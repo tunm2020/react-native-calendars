@@ -1,9 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View, Image } from 'react-native';
 import styleConstructor from './style';
 import PropTypes from 'prop-types';
 
-const Dot = ({theme, isMarked, isDisabled, dotColor, isToday, isSelected}) => {
+const Dot = ({ theme, isMarked, isDisabled, dotColor, isToday, isSelected, typeMarked }) => {
 
   const style = styleConstructor(theme);
   const dotStyle = [style.dot];
@@ -20,17 +20,30 @@ const Dot = ({theme, isMarked, isDisabled, dotColor, isToday, isSelected}) => {
     }
 
     if (dotColor) {
-      dotStyle.push({backgroundColor: dotColor});
+      dotStyle.push({ backgroundColor: dotColor });
     }
 
     if (isToday) {
       dotStyle.push(style.todayDot);
     }
   }
+  switch (typeMarked) {
+    case 'normal':
+      return (
+        <Image source={require('../img/normal.png')} style={{ height: 9, width: 8, marginTop: 5 }} />
+      )
+    case 'report':
+      return (
+        <Image source={require('../img/report.png')} style={{ height: 9, width: 8, marginTop: 5 }} />
+      )
+    case 'empty':
+      return (
+        <Image source={require('../img/empty.png')} style={{ height: 8, width: 8, marginTop: 5 }} />
+      )
+    default:
+      return <View style={dotStyle} />
+  }
 
-  return (
-    <View style={dotStyle}/>
-  );
 };
 
 export default Dot;
@@ -41,5 +54,6 @@ Dot.propTypes = {
   dotColor: PropTypes.string,
   isSelected: PropTypes.bool,
   isToday: PropTypes.bool,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  typeMarked: PropTypes.string,
 };

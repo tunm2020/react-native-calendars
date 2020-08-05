@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import React, { Component } from 'react';
+import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import {shouldUpdate} from '../../../component-updater';
+import { shouldUpdate } from '../../../component-updater';
 import Dot from '../../dot';
 import styleConstructor from './style';
 
@@ -18,7 +18,8 @@ class Day extends Component {
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
     date: PropTypes.object,
-    disableAllTouchEventsForDisabledDays: PropTypes.bool
+    disableAllTouchEventsForDisabledDays: PropTypes.bool,
+    typeMarked: PropTypes.string,
   };
 
   constructor(props) {
@@ -41,7 +42,7 @@ class Day extends Component {
   }
 
   render() {
-    const {theme, disableAllTouchEventsForDisabledDays} = this.props;
+    const { theme, disableAllTouchEventsForDisabledDays, typeMarked } = this.props;
     const containerStyle = [this.style.base];
     const textStyle = [this.style.text];
 
@@ -70,27 +71,22 @@ class Day extends Component {
       textStyle.push(this.style.selectedText);
 
       if (selectedColor) {
-        containerStyle.push({backgroundColor: selectedColor});
+        containerStyle.push({ backgroundColor: selectedColor });
       }
 
       if (selectedTextColor) {
-        textStyle.push({color: selectedTextColor});
+        textStyle.push({ color: selectedTextColor });
       }
 
     } else if (isDisabled) {
       textStyle.push(this.style.disabledText);
-    } else if (isToday) {
-      containerStyle.push(this.style.today);
-      textStyle.push(this.style.todayText);
     }
-
     let shouldDisableTouchEvent = false;
     if (typeof disableTouchEvent === 'boolean') {
       shouldDisableTouchEvent = disableTouchEvent;
     } else if (typeof disableAllTouchEventsForDisabledDays === 'boolean' && isDisabled) {
       shouldDisableTouchEvent = disableAllTouchEventsForDisabledDays;
     }
-
     return (
       <TouchableOpacity
         testID={this.props.testID}
@@ -102,8 +98,18 @@ class Day extends Component {
         accessibilityRole={isDisabled ? undefined : 'button'}
         accessibilityLabel={this.props.accessibilityLabel}
       >
+        {
+          isToday ? <View style={{
+            height: 6, width: 6,
+            borderRadius: 3,
+            backgroundColor: '#00C58D',
+            position: 'absolute',
+            top: 11, right: 10
+          }} /> : null
+        }
         <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
         <Dot
+          typeMarked={typeMarked}
           theme={theme}
           isMarked={marked}
           dotColor={dotColor}

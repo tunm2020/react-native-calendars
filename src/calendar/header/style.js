@@ -15,17 +15,18 @@ export default function(theme={}) {
       alignItems: 'center'
     },
     headerContainer: {
+      flex: 1,
       flexDirection: 'row'
     },
     monthText: {
       fontSize: appStyle.textMonthFontSize,
       fontFamily: appStyle.textMonthFontFamily,
-      fontWeight: appStyle.textMonthFontWeight,
-      color: appStyle.monthTextColor,
+      fontWeight: '500',
+      color: '#fff',
       margin: 10
     },
     arrow: {
-      padding: 10,
+      padding: 15,
       ...appStyle.arrowStyle
     },
     arrowImage: {

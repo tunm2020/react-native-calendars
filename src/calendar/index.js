@@ -31,6 +31,7 @@ class Calendar extends Component {
   static displayName = 'Calendar';
 
   static propTypes = {
+    typeMarkedDates: PropTypes.object,
     /** Specify theme properties to override specific styles for calendar parts. Default = {} */
     theme: PropTypes.object,
     /** Collection of dates that have to be marked. Default = {} */
@@ -203,7 +204,6 @@ class Calendar extends Component {
     const date = day.getDate();
     const dateAsObject = xdateToData(day);
     const accessibilityLabel = this.getAccessibilityLabel(state, day);
-
     return (
       <View style={{flex: 1, alignItems: 'center'}} key={id}>
         <DayComp
@@ -214,6 +214,7 @@ class Calendar extends Component {
           onLongPress={this.longPressDay}
           date={dateAsObject}
           marking={this.getDateMarking(day)}
+          typeMarked={this.getDateTypeMarking(day)}
           accessibilityLabel={accessibilityLabel}
           disableAllTouchEventsForDisabledDays={this.props.disableAllTouchEventsForDisabledDays}
         >
@@ -275,10 +276,21 @@ class Calendar extends Component {
     if (!this.props.markedDates) {
       return false;
     }
-
     const dates = this.props.markedDates[day.toString('yyyy-MM-dd')] || EmptyArray;
     if (dates.length || dates) {
       return dates;
+    } else {
+      return false;
+    }
+  }
+
+  getDateTypeMarking(day) {
+    if (!this.props.typeMarkedDates) {
+      return false;
+    }
+    const dates = this.props.typeMarkedDates[day.toString('yyyy-MM-dd')] || EmptyArray;
+    if (dates.length || dates) {
+      return dates.typeMarker;
     } else {
       return false;
     }

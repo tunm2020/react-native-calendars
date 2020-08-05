@@ -13,6 +13,7 @@ class CalendarHeader extends Component {
   static displayName = 'IGNORE';
 
   static propTypes = {
+    typeMarked: PropTypes.object,
     theme: PropTypes.object,
     hideArrows: PropTypes.bool,
     month: PropTypes.instanceOf(XDate),
@@ -155,7 +156,7 @@ class CalendarHeader extends Component {
           onPress={this.onPressLeft}
           disabled={this.props.disableArrowLeft}
           style={this.style.arrow}
-          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+          // hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
           testID={testID ? `${CHANGE_MONTH_LEFT_ARROW}-${testID}`: CHANGE_MONTH_LEFT_ARROW}
         >
           {this.props.renderArrow
@@ -171,7 +172,7 @@ class CalendarHeader extends Component {
           onPress={this.onPressRight}
           disabled={this.props.disableArrowRight}
           style={this.style.arrow}
-          hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
+          // hitSlop={{left: 20, right: 20, top: 20, bottom: 20}}
           testID={testID ? `${CHANGE_MONTH_RIGHT_ARROW}-${testID}`: CHANGE_MONTH_RIGHT_ARROW}
         >
           {this.props.renderArrow
@@ -204,11 +205,11 @@ class CalendarHeader extends Component {
         importantForAccessibility={this.props.importantForAccessibility} // Android
       >
         <View style={this.style.header}>
-          {leftArrow}
           <View style={this.style.headerContainer}>
             {this.renderHeader()}
             {indicator}
           </View>
+          {leftArrow}
           {rightArrow}
         </View>
         {!this.props.hideDayNames &&
