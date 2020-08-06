@@ -7,6 +7,7 @@ import styleConstructor from './style';
 import {weekDayNames} from '../../dateutils';
 import {CHANGE_MONTH_LEFT_ARROW, CHANGE_MONTH_RIGHT_ARROW, HEADER_MONTH_NAME} from '../../testIDs';
 import _ from 'lodash';
+import { backgroundColor } from 'react-native-calendars/src/style';
 
 
 class CalendarHeader extends Component {
@@ -29,7 +30,9 @@ class CalendarHeader extends Component {
     disableArrowRight: PropTypes.bool,
     webAriaLevel: PropTypes.number,
     disabledDaysIndexes: PropTypes.arrayOf(PropTypes.number),
-    renderHeader: PropTypes.any
+    renderHeader: PropTypes.any,
+    backgroundColorHeader: PropTypes.string,
+    colorMonthText: PropTypes.string
   };
 
   static defaultProps = {
@@ -134,7 +137,7 @@ class CalendarHeader extends Component {
       <Fragment>
         <Text
           allowFontScaling={false}
-          style={this.style.monthText}
+          style={[this.style.monthText, {color: this.props.colorMonthText}]}
           testID={testID ? `${HEADER_MONTH_NAME}-${testID}`: HEADER_MONTH_NAME}
           {...webProps}
         >
@@ -204,7 +207,7 @@ class CalendarHeader extends Component {
         accessibilityElementsHidden={this.props.accessibilityElementsHidden} // iOS
         importantForAccessibility={this.props.importantForAccessibility} // Android
       >
-        <View style={this.style.header}>
+        <View style={[this.style.header, {backgroundColor: this.props.backgroundColorHeader}]}>
           <View style={this.style.headerContainer}>
             {this.renderHeader()}
             {indicator}

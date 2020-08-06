@@ -20,6 +20,7 @@ class Day extends Component {
     date: PropTypes.object,
     disableAllTouchEventsForDisabledDays: PropTypes.bool,
     typeMarked: PropTypes.string,
+    colorDay: PropTypes.string,
   };
 
   constructor(props) {
@@ -107,7 +108,7 @@ class Day extends Component {
             top: 11, right: 10
           }} /> : null
         }
-        <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+        <Text allowFontScaling={false} style={[textStyle,{color: this.props.colorDay}]}>{String(this.props.children)}</Text>
         <Dot
           typeMarked={typeMarked}
           theme={theme}

@@ -31,6 +31,10 @@ class Calendar extends Component {
   static displayName = 'Calendar';
 
   static propTypes = {
+    colorDay: PropTypes.string,
+    monthView: PropTypes.object,
+    colorMonthText: PropTypes.string,
+    backgroundColorHeader: PropTypes.string,
     typeMarkedDates: PropTypes.object,
     /** Specify theme properties to override specific styles for calendar parts. Default = {} */
     theme: PropTypes.object,
@@ -207,6 +211,7 @@ class Calendar extends Component {
     return (
       <View style={{flex: 1, alignItems: 'center'}} key={id}>
         <DayComp
+          colorDay={this.props.colorDay}
           testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
           state={state}
           theme={this.props.theme}
@@ -404,8 +409,10 @@ class Calendar extends Component {
             disableArrowRight={this.props.disableArrowRight}
             disabledDaysIndexes={this.props.disabledDaysIndexes}
             renderHeader={this.props.renderHeader}
+            backgroundColorHeader={this.props.backgroundColorHeader}
+            colorMonthText={this.props.colorMonthText}
           />
-          <View style={this.style.monthView}>{weeks}</View>
+          <View style={[this.style.monthView, this.props.monthView]}>{weeks}</View>
         </View>
       </GestureRecognizer>
     );

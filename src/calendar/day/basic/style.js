@@ -18,7 +18,7 @@ export default function styleConstructor(theme={}) {
       fontSize: appStyle.textDayFontSize,
       fontFamily: appStyle.textDayFontFamily,
       fontWeight: '500',
-      color: '#fff',
+      // color: '#fff',
       backgroundColor: 'transparent',
       ...appStyle.textDayStyle
     },
